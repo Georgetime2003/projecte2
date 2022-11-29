@@ -1,0 +1,81 @@
+/* Jordi Palomino Escarra */
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-size: cover;
+    background-position: 50%;
+    background-image: url(../assets/img/background.jpg);
+    height: 100vh;
+    color: #2e2e2e;
+}
+
+.album {
+    border: 4px solid;
+    border-color: #0075a2;
+    border-radius: 2%;
+}
+
+h1 {
+    margin: 20px 0;
+    text-align: center;
+    color: #9fe511;
+    font-weight: black;
+}
+
+.container .articles {
+    margin-bottom: 20px;
+}
+
+.container .articles ul {
+    list-style: none;
+}
+
+.container .articles ul li {
+    padding: 15px 10px;
+    border-bottom: 1px solid #c8c8c8;
+}
+
+.paginacio ul {
+    list-style: none;
+}
+
+.paginacio ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.paginacio ul .active a {
+    font-weight: bolder;
+    background: #00a2ff;
+}
+
+.paginacio ul li a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #14213d;
+    ;
+    color: #fff;
+    text-decoration: none;
+}
+
+.paginacio ul li a:hover {
+    text-decoration: none;
+    background: #c8c0ff;
+}
+
+.page-link .disabled {
+    background: #5f5d5d;
+    display: inline-block;
+    padding: 2px 2px;
+    cursor: not-allowed;
+    color: rgb(89, 89, 89);
+    text-decoration: none;
+    pointer-events: none;
+}
