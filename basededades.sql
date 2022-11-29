@@ -3,16 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 29-11-2022 a les 19:51:52
--- Versió del servidor: 10.4.24-MariaDB
--- Versió de PHP: 8.1.6
+-- Tiempo de generación: 29-11-2022 a las 20:21:58
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE DATABASE IF NOT EXISTS projecte2;
-USE projecte2;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -20,18 +18,35 @@ USE projecte2;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de dades: `projecte2`
+-- Base de datos: `projecte2`
 --
+
+DROP DATABASE IF EXISTS projecte2;
+
+CREATE DATABASE IF NOT EXISTS projecte2;
+
+USE projecte2;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `destinacions`
+-- Estructura de tabla para la tabla `continents`
+--
+
+CREATE TABLE `continents` (
+  `id` int(11) NOT NULL,
+  `continent` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `destinacions`
 --
 
 CREATE TABLE `destinacions` (
   `id` int(11) NOT NULL COMMENT 'Clau Primària',
-  `continent` varchar(255) NOT NULL COMMENT 'Continent',
+  `continent` int(11) NOT NULL COMMENT 'Continent',
   `pais` varchar(255) NOT NULL COMMENT 'Pais',
   `imatges` varchar(255) NOT NULL COMMENT 'Imatges de la destinació'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Taula de destinacions';
@@ -39,7 +54,7 @@ CREATE TABLE `destinacions` (
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `ofertes`
+-- Estructura de tabla para la tabla `ofertes`
 --
 
 CREATE TABLE `ofertes` (
@@ -53,7 +68,7 @@ CREATE TABLE `ofertes` (
 -- --------------------------------------------------------
 
 --
--- Estructura de la taula `reserves`
+-- Estructura de tabla para la tabla `reserves`
 --
 
 CREATE TABLE `reserves` (
@@ -67,66 +82,82 @@ CREATE TABLE `reserves` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Índexs per a les taules bolcades
+-- Índices para tablas volcadas
 --
 
 --
--- Índexs per a la taula `destinacions`
+-- Indices de la tabla `continents`
+--
+ALTER TABLE `continents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `destinacions`
 --
 ALTER TABLE `destinacions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índexs per a la taula `ofertes`
+-- Indices de la tabla `ofertes`
 --
 ALTER TABLE `ofertes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `iddesti` (`iddesti`);
 
 --
--- Índexs per a la taula `reserves`
+-- Indices de la tabla `reserves`
 --
 ALTER TABLE `reserves`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idoferta` (`idoferta`);
 
 --
--- AUTO_INCREMENT per les taules bolcades
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT per la taula `destinacions`
+-- AUTO_INCREMENT de la tabla `continents`
+--
+ALTER TABLE `continents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `destinacions`
 --
 ALTER TABLE `destinacions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària';
 
 --
--- AUTO_INCREMENT per la taula `ofertes`
+-- AUTO_INCREMENT de la tabla `ofertes`
 --
 ALTER TABLE `ofertes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària';
 
 --
--- AUTO_INCREMENT per la taula `reserves`
+-- AUTO_INCREMENT de la tabla `reserves`
 --
 ALTER TABLE `reserves`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key';
 
 --
--- Restriccions per a les taules bolcades
+-- Restricciones para tablas volcadas
 --
 
 --
--- Restriccions per a la taula `ofertes`
+-- Filtros para la tabla `ofertes`
 --
 ALTER TABLE `ofertes`
   ADD CONSTRAINT `ofertes_ibfk_1` FOREIGN KEY (`iddesti`) REFERENCES `destinacions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Restriccions per a la taula `reserves`
+-- Filtros para la tabla `reserves`
 --
 ALTER TABLE `reserves`
   ADD CONSTRAINT `reserves_ibfk_1` FOREIGN KEY (`idoferta`) REFERENCES `ofertes` (`id`);
+
+
+ALTER TABLE `destinacions`
+  ADD CONSTRAINT `destinacions_ibfk_1` FOREIGN KEY (`continent`) REFERENCES `continents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
