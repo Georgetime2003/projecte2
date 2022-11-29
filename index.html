@@ -12,13 +12,20 @@
 	<script src="styles/bootstrap/js/popper.min.js"></script>
 	<script src="styles/bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="styles/estils.css">
-
 	<title>Projecte 2</title>
+	<script>
+		$(document).ready(function() {
+			$("#nav").load("templates/nav.html");
+			$("#body").load("templates/body.html");
+			
+			$("#footer").load("templates/footer.html");
+		});
+ </script>
 </head>
-
 <body>
-	
-	
+	<nav id="nav"></nav>
+	<main id="body"></main>
+	<footer id="footer"></footer>
 </body>
 
 </html>
