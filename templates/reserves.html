@@ -1,3 +1,29 @@
 <form method="post" action="">
+    <label for="data">Data</label>
+    <input type="date" name="data" id="data">
+    <label for="desti">Destí</label>
+    <input list="continents" name="continents" id="continents">
+    <datalist id="continents">
+        <option value="Europa">
+        <option value="Àfrica">
+        <option value="Amèrica">
+        <option value="Àsia">
+        <option value="Oceania">
+    </datalist>
+    <input list="paisos" name="paisos" id="paisos">
+    <datalist id="datalistpaisos">
 
+    </datalist>
+    <label for="preu">Preu</label>
+    <input type="number" name="preu" id="preu" disabled>
+    <label for="nom">Nom</label>
+    <input type="text" name="nom" id="nom">
+    <label for="telefon">Telèfon</label>
+    <input type="text" name="telefon" id="telefon">
+    <label for="persones">Persones</label>
+    <input type="number" name="persones" id="persones">
+    <input type="checkbox" name="descompte" id="descompte">
+    <label for="descompte">Descompte 20%</label>
+    <br>
+    <input type="submit" value="Reservar">
 </form>
