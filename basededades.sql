@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2022 a las 20:21:58
+-- Tiempo de generación: 29-11-2022 a las 20:52:52
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -38,6 +38,17 @@ CREATE TABLE `continents` (
   `continent` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `continents`
+--
+
+INSERT INTO `continents` (`id`, `continent`) VALUES
+(1, 'asia'),
+(2, 'nordamerica'),
+(3, 'sudamerica'),
+(4, 'europa'),
+(5, 'oceania');
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +61,19 @@ CREATE TABLE `destinacions` (
   `pais` varchar(255) NOT NULL COMMENT 'Pais',
   `imatges` varchar(255) NOT NULL COMMENT 'Imatges de la destinació'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Taula de destinacions';
+
+--
+-- Volcado de datos para la tabla `destinacions`
+--
+
+INSERT INTO `destinacions` (`id`, `continent`, `pais`, `imatges`) VALUES
+(1, 1, 'india', 'asdasd'),
+(2, 1, 'japo', 'sdfja'),
+(3, 1, 'nepal', 'asda'),
+(4, 2, 'canada', 'sdfsd'),
+(5, 3, 'chile', 'asldkja'),
+(6, 4, 'alemanya', 'asdad'),
+(7, 4, 'kosovo', 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -95,7 +119,8 @@ ALTER TABLE `continents`
 -- Indices de la tabla `destinacions`
 --
 ALTER TABLE `destinacions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `destinacions_ibfk_1` (`continent`);
 
 --
 -- Indices de la tabla `ofertes`
@@ -119,13 +144,13 @@ ALTER TABLE `reserves`
 -- AUTO_INCREMENT de la tabla `continents`
 --
 ALTER TABLE `continents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `destinacions`
 --
 ALTER TABLE `destinacions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària', AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `ofertes`
@@ -144,6 +169,12 @@ ALTER TABLE `reserves`
 --
 
 --
+-- Filtros para la tabla `destinacions`
+--
+ALTER TABLE `destinacions`
+  ADD CONSTRAINT `destinacions_ibfk_1` FOREIGN KEY (`continent`) REFERENCES `continents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `ofertes`
 --
 ALTER TABLE `ofertes`
@@ -154,10 +185,6 @@ ALTER TABLE `ofertes`
 --
 ALTER TABLE `reserves`
   ADD CONSTRAINT `reserves_ibfk_1` FOREIGN KEY (`idoferta`) REFERENCES `ofertes` (`id`);
-
-
-ALTER TABLE `destinacions`
-  ADD CONSTRAINT `destinacions_ibfk_1` FOREIGN KEY (`continent`) REFERENCES `continents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
