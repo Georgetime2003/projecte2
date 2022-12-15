@@ -1,0 +1,28 @@
+{
+    "environment" : {
+        "protocol" : "http://",
+        
+        "baseUrl" : "localhost/projecte2/",
+
+        "api" : {
+            "destinacions" : {
+                "create" : "php_rest/api/destinacions/create.php",
+                "read" : "php_rest/api/destinacions/read.php",
+                "update" : "php_rest/api/destinacions/update.php",
+                "delete" : "php_rest/api/destinacions/delete.php"
+            },
+            "ofertes" : {
+                "create" : "php_rest/api/ofertes/create.php",
+                "read" : "php_rest/api/ofertes/read.php",
+                "update" : "php_rest/api/ofertes/update.php",
+                "delete" : "php_rest/api/ofertes/delete.php"
+            },
+            "reserves" : {
+                "create" : "php_rest/api/reserves/create.php",
+                "read" : "php_rest/api/reserves/read.php",
+                "update" : "php_rest/api/reserves/update.php",
+                "delete" : "php_rest/api/reserves/delete.php"
+            }
+        }
+    }
+}
