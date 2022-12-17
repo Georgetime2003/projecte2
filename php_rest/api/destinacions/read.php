@@ -44,7 +44,7 @@
         $llista_destinacions = LlistaDestinacions::getLlista();
 
         $response = array(
-            'continents' => $llista_destinacions,
+            'paisos' => $llista_destinacions,
             'status' => 'OK'
         );
     }
