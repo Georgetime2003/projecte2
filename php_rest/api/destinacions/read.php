@@ -28,6 +28,15 @@
             'status' => 'OK'
         );
     }
+    if(!empty($data['read']) && $data['read'] === 'continents'){
+        LlistaDestinacions::getContinents();
+        $llista_destinacions = LlistaDestinacions::getLlista();
+
+        $response = array(
+            'continents' => $llista_destinacions,
+            'status' => 'OK'
+        );
+    }
 
     echo json_encode($response);
 ?>

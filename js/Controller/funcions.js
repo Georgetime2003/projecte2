@@ -2,7 +2,8 @@
 
 window.onload = init;
 
-var continents, paisos;
+var continents = [];
+var paisos = [];
 
 function init() {
     document.getElementById("ofertes").addEventListener("click", loadOfertes);
@@ -40,9 +41,10 @@ function llistarDestins(){
     xhr.open("GET", "php_rest/api/destinacions/read.php?read=ALL", true);
     xhr.onload = function () {
         if (xhr.status == 200) {
-            let destins = JSON.parse(xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            let destins = response.destinacions;
             let llista = document.getElementById("datalistOptions");
-            llista.innerHTML = "";
+
             destins.forEach(desti => {
                 let option = document.createElement("option");
                 option.value = desti.id;
