@@ -70,6 +70,44 @@
 
         // METHODS
 
+        public function create(){
+            $query = "INSERT INTO reserves (id, idoferta, nomclient, telefon, npersones, descompte, datareserva)
+                        VALUES (null, :idoferta, :nomclient, :telefon, :npersones, :descompte, :datareserva)";
+
+            $params = array(':idoferta' => $this->getOferta(),
+                            ':nomclient' => $this->getClient(),
+                            ':telefon' => $this->getTelf(),
+                            ':npersones' => $this->getNumPersones(),
+                            ':descompte' => $this->getDescompte(),
+                            ':datareserva' => $this->getDataReserva()
+            );
+
+            Connexio::connect();
+            $stmt = Connexio::execute($query,$params);
+
+            if ($stmt) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+
+        public function delete(){
+            //Delete query
+            $query = "DELETE FROM reserves WHERE id = :id;";
+
+            $params = array(":id" => $this->getId());
+
+            Connexio::connect();
+            $stmt = Connexio::execute($query, $params);
+            
+            if ($stmt) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+
         public function jsonSerialize() {
             return [
                 'oferta' => $this->getOferta(),

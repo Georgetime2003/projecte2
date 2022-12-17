@@ -54,6 +54,42 @@
 
         // METHODS
 
+        public function create(){
+            $query = "INSERT INTO ofertes (id, iddesti, preupersona, datainici, datafi)
+                        VALUES (null, :iddesti, :preupersona, :datainici, :datafi)";
+
+            $params = array(':iddesti' => $this->getDesti(),
+                            ':preupersona' => $this->getPreuPersona(),
+                            ':datainici' => $this->getDataInici(),
+                            ':datafi' => $this->getDataFi()
+            );
+
+            Connexio::connect();
+            $stmt = Connexio::execute($query,$params);
+
+            if ($stmt) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+
+        public function delete(){
+            //Delete query
+            $query = "DELETE FROM ofertes WHERE id = :id;";
+
+            $params = array(":id" => $this->getId());
+
+            Connexio::connect();
+            $stmt = Connexio::execute($query, $params);
+            
+            if ($stmt) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+
         public function jsonSerialize() {
             return [
                 'destinacio' => $this->getDesti(),
