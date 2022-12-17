@@ -1,12 +1,24 @@
 <?php
-
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+* @author: Jordi Palomino <j.palomino@sapalomera.cat>
+*
+**/
 class LlistaDestinacions{
     private static $llista_destinacions = array();
-
+    // GETTER
     public static function getLlista(){
         return self::$llista_destinacions;
     }
-    
+
+    /**
+    * Get All Destinacions
+    *
+    * @return void
+    * 
+    * Métode que retorna totes les destinacions de la BBDD
+    */
     public static function getAllDestinacions(){
         self::$llista_destinacions = array();
 
@@ -32,6 +44,13 @@ class LlistaDestinacions{
         }
     }
 
+    /**
+    * Get Continents
+    *
+    * @return void
+    * 
+    * Métode que crea un array amb els continents de la BBDD
+    */
     public static function getContinents(){
         self::$llista_destinacions = array();
 
@@ -53,7 +72,13 @@ class LlistaDestinacions{
             }
         }
     }
-
+    /**
+    * Get Paisos
+    * @param $continent - l'id d'un continent
+    * @return void
+    * 
+    * Métode que crea un array amb les destinacions del continent especificat de la BBDD
+    */
     public static function getPaisos($continent){
         self::$llista_destinacions = array();
 

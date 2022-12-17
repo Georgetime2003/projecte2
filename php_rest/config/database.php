@@ -1,8 +1,11 @@
 <?php
 
     /**
-     * @author Sergi Triadó <s.triado@sapalomera.cat>
-     */
+    *
+    * @author: Sergi Triadó <s.triado@sapalomera.cat>
+    * @author: Jordi Palomino <j.palomino@sapalomera.cat>
+    *
+    **/
     
     /**
      * Database

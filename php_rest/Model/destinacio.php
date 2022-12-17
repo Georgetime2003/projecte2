@@ -1,4 +1,10 @@
 <?php 
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+* @author: Jordi Palomino <j.palomino@sapalomera.cat>
+*
+**/
     class Destinacio implements JsonSerializable{
 
         // PROPERTIES
@@ -30,7 +36,6 @@
         }
         
         // SETTERS
-
         public function setContinent($continent){
             $this->continent = $continent;
         }
@@ -45,7 +50,13 @@
         }
 
         // METHODS
-
+        /**
+         * jsonSerialize
+         *
+         * @return JSONObject
+         * 
+         * Métode de la interfície JsonSerializable que indica la seva estructura quan es converteixi a JSON
+         */
         public function jsonSerialize() {
             return [
                 'id' => $this->getId(),

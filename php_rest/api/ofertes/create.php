@@ -12,6 +12,7 @@
     // $data = json_decode(file_get_contents("php://input"));
     $data = $_POST;
     
+    // Si no falten dades creem la oferta
     if (!empty($data['desti']) && !empty($data['preupersona']) && !empty($data['datainici']) && !empty($data['datafi'])) {
         $result = LlistaOfertes::createOferta($data);
 

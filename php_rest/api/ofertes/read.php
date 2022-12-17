@@ -18,6 +18,7 @@
     // $data = json_decode(file_get_contents("php://input"));
     $data = $_GET;
 
+    // Si el parametre read=ALL retornem totes les ofertes
     if(!empty($data['read']) && strtoupper($data['read']) == 'ALL'){
         LlistaOfertes::getAllOfertes();
 

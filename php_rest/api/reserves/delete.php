@@ -12,6 +12,7 @@
     $data = $_POST;
     // $data = json_decode(file_get_contents("php://input"));
     
+    // Si no falta la id eliminem la reserva
     if (!empty($data['id'])) {
         $result = LlistaReserves::delete_reserva($data['id']);
     

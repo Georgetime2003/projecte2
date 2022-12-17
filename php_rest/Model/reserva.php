@@ -1,4 +1,10 @@
-<?php 
+<?php
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+* @author: Jordi Palomino <j.palomino@sapalomera.cat>
+*
+**/
     class Reserva implements JsonSerializable{
 
         // PROPERTIES
@@ -68,8 +74,14 @@
             $this->id = $id;
         }
 
-        // METHODS
-
+        // METHODS      
+        /**
+         * create
+         *
+         * @return boolean
+         * 
+         * Métode per introduir una reserva a la BBDD
+         */
         public function create(){
             $query = "INSERT INTO reserves (id, idoferta, nomclient, telefon, npersones, descompte, datareserva)
                         VALUES (null, :idoferta, :nomclient, :telefon, :npersones, :descompte, :datareserva)";
@@ -92,6 +104,13 @@
             }
         }
 
+        /**
+         * delete
+         *
+         * @return boolean
+         * 
+         * Métode per eliminar una reserva de la BBDD
+         */
         public function delete(){
             //Delete query
             $query = "DELETE FROM reserves WHERE id = :id;";
@@ -108,6 +127,13 @@
             }
         }
 
+        /**
+         * jsonSerialize
+         *
+         * @return JSONObject
+         * 
+         * Métode de la interfície JsonSerializable que indica la seva estructura quan es converteixi a JSON
+         */
         public function jsonSerialize() {
             return [
                 'oferta' => $this->getOferta(),

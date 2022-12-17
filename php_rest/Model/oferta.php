@@ -1,4 +1,10 @@
 <?php 
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+* @author: Jordi Palomino <j.palomino@sapalomera.cat>
+*
+**/
     class Oferta implements JsonSerializable{
 
         // PROPERTIES
@@ -35,7 +41,6 @@
         }
         
         // SETTERS
-
         public function setDesti($desti){
             $this->desti = $desti;
         }
@@ -54,6 +59,13 @@
 
         // METHODS
 
+        /**
+         * create
+         *
+         * @return boolean
+         * 
+         * Métode per introduir una oferta a la BBDD
+         */
         public function create(){
             $query = "INSERT INTO ofertes (id, iddesti, preupersona, datainici, datafi)
                         VALUES (null, :iddesti, :preupersona, :datainici, :datafi)";
@@ -74,6 +86,13 @@
             }
         }
 
+        /**
+         * delete
+         *
+         * @return boolean
+         * 
+         * Métode per eliminar una oferta de la BBDD
+         */
         public function delete(){
             //Delete query
             $query = "DELETE FROM ofertes WHERE id = :id;";
@@ -90,6 +109,13 @@
             }
         }
 
+        /**
+         * jsonSerialize
+         *
+         * @return JSONObject
+         * 
+         * Métode de la interfície JsonSerializable que indica la seva estructura quan es converteixi a JSON
+         */
         public function jsonSerialize() {
             return [
                 'destinacio' => $this->getDesti(),

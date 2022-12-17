@@ -18,6 +18,7 @@
     // $data = json_decode(file_get_contents("php://input"));
     $data = $_GET;
 
+    // Si el parametre read=ALL retornem totes les destinacions
     if(!empty($data['read']) && $data['read'] === 'ALL'){
         LlistaDestinacions::getAllDestinacions();
 
@@ -29,6 +30,7 @@
         );
     }
 
+    // Si el parametre read=continents retornem els continents
     if(!empty($data['read']) && $data['read'] === 'continents'){
         LlistaDestinacions::getContinents();
         $llista_destinacions = LlistaDestinacions::getLlista();
@@ -39,6 +41,7 @@
         );
     }
 
+    // Si el parametre continent=id retorna les destinacions del continent
     if (!empty($data['continent'])) {
         LlistaDestinacions::getPaisos($data['continent']);
         $llista_destinacions = LlistaDestinacions::getLlista();
