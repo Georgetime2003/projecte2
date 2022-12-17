@@ -12,6 +12,7 @@
     // $data = json_decode(file_get_contents("php://input"));
     $data = $_POST;
     
+    // Si no falten dades creem la reserva
     if (!empty($data['idoferta']) && !empty($data['nomclient']) && !empty($data['telefon']) && !empty($data['npersones']) && !empty($data['descompte']) && !empty($data['datareserva'])) {
         $result = LlistaReserves::create_reserva($data);
 

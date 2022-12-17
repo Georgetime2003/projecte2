@@ -1,12 +1,25 @@
 <?php
-
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+* @author: Jordi Palomino <j.palomino@sapalomera.cat>
+*
+**/
 class LlistaOfertes{
     private static $llista_ofertes = array();
-
+    
+    // GETTER
     public static function getLlista(){
         return self::$llista_ofertes;
     }
     
+    /**
+    * Get All Ofertes
+    *
+    * @return void
+    * 
+    * Métode que retorna totes les ofertes de la BBDD
+    */
     public static function getAllOfertes(){
         self::$llista_ofertes = array();
 
@@ -32,6 +45,13 @@ class LlistaOfertes{
         }
     }
 
+    /**
+    * Oferta Find
+    * @param $id - id de la oferta
+    * @return Oferta
+    * 
+    * Métode que retorna la oferta especificada de la BBDD
+    */
     public static function oferta_find($id){
         $query = "SELECT id, iddesti, preupersona, datainici, datafi FROM ofertes WHERE id = :id ;";
         $params = array(':id' => $id);
@@ -46,12 +66,26 @@ class LlistaOfertes{
         return $oferta;
     }
 
+    /**
+    * Create Oferta
+    * @param data - Les dades de la oferta a crear
+    * @return boolean
+    * 
+    * Métode que crea una oferta i la inserta a la BBDD
+    */
     public static function createOferta($data){
         $oferta = new Oferta($data['desti'], $data['preupersona'], $data['datainici'], $data['datafi']);
 
         return $oferta->create();
     }
 
+    /**
+    * Delete Oferta
+    * @param $id - id de la oferta a eliminar
+    * @return boolean
+    * 
+    * Métode que elimina la oferta de la BBDD
+    */
     public static function delete_oferta($id){
         $oferta = self::oferta_find($id);
 
