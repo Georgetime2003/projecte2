@@ -2,8 +2,7 @@
 
 window.onload = init;
 
-var continents = [];
-var paisos = [];
+var continents, paisos, continents, pais;
 
 function init() {
     document.getElementById("ofertes").addEventListener("click", loadOfertes);
@@ -36,21 +35,37 @@ function loadReserves() {
     xhr.send();
 }
 
-function llistarDestins(){
+function llistarContinents(){
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "php_rest/api/destinacions/read.php?read=ALL", true);
     xhr.onload = function () {
         if (xhr.status == 200) {
-            let response = JSON.parse(xhr.responseText);
-            let destins = response.destinacions;
-            let llista = document.getElementById("datalistOptions");
-
-            destins.forEach(desti => {
+            let destins = JSON.parse(xhr.responseText);
+            let llista = document.getElementById("continents");
+            llista.innerHTML = "";
+            destins.destinacions.forEach(continent => {
                 let option = document.createElement("option");
-                option.value = desti.id;
-                option.innerHTML = desti.continent;
+                option.innerHTML = continent.continent;
                 llista.appendChild(option);
             });
+        }
+    }
+    xhr.send();
+}
+
+function llistarPaisos(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "php_rest/api/destinacions/read.php?read=ALL", true);
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            let destins = JSON.parse(xhr.responseText);
+            let llista = document.getElementById("datalistOptions");
+            llista.innerHTML = "";
+            for (let i = 0; i < destins.destinacions.length; i++) {
+                let option = document.createElement("option");
+                option.value = destins[i].pais;
+                llista.appendChild(option);
+            }
         }
     }
     xhr.send();
