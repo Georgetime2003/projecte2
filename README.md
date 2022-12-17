@@ -1,6 +1,7 @@
 # projecte2
 
 *** BACKEND REQUESTS ***
+
 *DESTINACIONS*
 
 /api/destinacions/read.php - GET - Envies un read=ALL per rebre un array de totes les ofertes, 
