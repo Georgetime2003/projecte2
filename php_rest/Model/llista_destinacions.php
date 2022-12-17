@@ -31,6 +31,28 @@ class LlistaDestinacions{
             }
         }
     }
+
+    public static function getContinents(){
+        self::$llista_destinacions = array();
+
+        $query = "SELECT continent FROM continents";
+
+        Connexio::connect();
+        $stmt = Connexio::execute($query);
+        Connexio::close();
+
+        $result = $stmt->fetchAll();
+
+        $num = count($result);
+
+        if ($num > 0) {
+            foreach ($result as $row) {
+                extract($row);
+
+                array_push(self::$llista_destinacions, $row['continent']);
+            }
+        }
+    }
 }
 
 ?>

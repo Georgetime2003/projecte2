@@ -2,9 +2,8 @@
     <div class="mb-3">
         <h3 class="text-center">Afegir Oferta</h3>
         <label for="Continent" class="form-label">Continent</label>
-        <input type="datalistOptions" onclick="llistarDestins()" class="form-control" id="Continent" name="Continent" placeholder="Continent">
-        <datalist id="datalistOptions">
-            <option value="Europa">
+        <input type="datalistOptions" class="form-control" id="Continent" name="Continent" placeholder="Continent" onclick="llistarDestins()">
+        <datalist id="datalistOptions" onload="llistarDestins()">
         </datalist>
         <label for="Pais" class="form-label">País</label>
         <input type="text" class="form-control" id="Pais" name="Pais" placeholder="País">
