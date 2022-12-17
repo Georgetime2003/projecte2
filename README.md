@@ -2,6 +2,7 @@
 
 *** BACKEND REQUESTS ***
 *DESTINACIONS*
+
 /api/destinacions/read.php - GET - Envies un read=ALL per rebre un array de totes les ofertes, 
                                     un read=continents per rebre un array de continents, i 
                                     continent=idcontinent per rebre un array dels paisos del continent
@@ -19,6 +20,7 @@
                 'status' => 'OK'
 
 *OFERTES*
+
 /api/ofertes/read.php - GET - Envies un read=ALL per rebre un array de totes les ofertes
 
     params: read=ALL
@@ -36,6 +38,7 @@
     return: 'success' => true o 'error' => true
 
 *RESERVES*
+
 /api/reserves/read.php - GET - Envies un read=ALL per rebre un array de totes les reserves
 
     params: read=ALL
