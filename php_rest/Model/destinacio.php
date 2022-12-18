@@ -51,6 +51,29 @@
 
         // METHODS
         /**
+         * update
+         *
+         * @return boolean
+         * 
+         * Métode per actualitzar una oferta de la BBDD
+         */
+        public function update(){
+            $query = "UPDATE destinacions SET continent = :continent, pais = :pais, imatges = :imatges WHERE id = :id";
+
+            $params = array(':continent' => $this->getContinent(), ':pais' => $this->getPais(),':imatges' => $this->getImatges(), ':id' => $this->getId());
+
+            Connexio::connect();
+            $stmt = Connexio::execute($query, $params);
+            Connexio::close();
+            
+            if ($stmt) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+
+        /**
          * jsonSerialize
          *
          * @return JSONObject
