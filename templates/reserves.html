@@ -1,15 +1,16 @@
 <form enctype="multipart/form-data">
     <div class="mb-3">
+        <h3>Crear Reserva</h3>
         <label class="form-label" for="data">Data</label>
         <input class="form-control" type="date" name="data" id="data">
         <label class="form-label" for="desti">Destí</label>
-        <select class="form-control" id="continents" name="continents" class="form-select" aria-label="Continents">
+        <select class="form-control" onclick="llistarPaisos()" id="Continent" name="continents" class="form-select" aria-label="Continents">
             <option value="null" selected>Seleccioni un Continent</option>
-            <option onclick="llistarPaisos()" value="Europa">Europa</option>
-            <option onclick="llistarPaisos()" value="Asia">Àsia</option>
-            <option onclick="llistarPaisos()" value="Africa">Africa</option>
-            <option onclick="llistarPaisos()" value="America">Amèrica</option>
-            <option onclick="llistarPaisos()" value="Oceania">Oceania</option>
+            <option value="Europa">Europa</option>
+            <option value="Asia">Àsia</option>
+            <option value="Africa">Africa</option>
+            <option value="America">Amèrica</option>
+            <option value="Oceania">Oceania</option>
         </select>
         <label class="form-label" for="pais">País</label>
        <select id="Pais" name="Pais" class="form-select" aria-label="Paisos" disabled>

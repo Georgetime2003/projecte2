@@ -55,7 +55,7 @@ function llistarContinents(){
 
 function llistarPaisos(){
     if (document.getElementById("Continent").value == "null") {
-        document.getElementById("paisos").innerHTML = "<option value='null' default>No has seleccionat cap continent</option>";
+        document.getElementById("Pais").innerHTML = "<option value='null' default>No has seleccionat cap continent</option>";
         } else {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", "php_rest/api/destinacions/read.php?read=ALL", true);
@@ -76,6 +76,7 @@ function llistarPaisos(){
                     }
                     if (destins.destinacions.length == 0) {
                         llista.innerHTML = "<option value='0'>No hi ha paisos disponibles</option>"
+                        document.getElementById("Pais").setAttribute("disabled", "disabled");
                         document.getElementById("intropais").removeAttribute("hidden");
                         document.getElementById("labintro").removeAttribute("hidden");
                     } else {
