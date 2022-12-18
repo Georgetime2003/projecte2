@@ -2,11 +2,20 @@
     <div class="mb-3">
         <h3 class="text-center">Afegir Oferta</h3>
         <label for="Continent" class="form-label">Continent</label>
-        <input type="datalistOptions" class="form-control" id="Continent" name="Continent" placeholder="Continent" onclick="llistarDestins()">
-        <datalist id="datalistOptions" onload="llistarDestins()">
-        </datalist>
+        <select id="Continent" onclick="llistarPaisos()" name="Continent" class="form-select" aria-label="Continents">
+            <option value="null" selected>Seleccioni un Continent</option>
+            <option value="Europa">Europa</option>
+            <option value="Asia">Àsia</option>
+            <option value="Africa">Africa</option>
+            <option value="America">Amèrica</option>
+            <option value="Oceania">Oceania</option>
+        </select>
         <label for="Pais" class="form-label">País</label>
-        <input type="text" class="form-control" id="Pais" name="Pais" placeholder="País">
+        <select id="Pais" name="Pais" class="form-select" aria-label="Paisos" disabled>
+            <option value="0" selected>Seleccioni un Continent primer</option>
+        </select>
+        <label for="intropais" id="labintro" class="form-label" hidden>Escriu el nom del país</label>
+        <input type="text" class="form-control" id="intropais" name="intropais" placeholder="Escriu el nom del país" hidden>
         <label for="preupersona" class="form-label">Preu per persona</label>
         <input type="number" class="form-control" id="preupersona" name="preupersona" placeholder="Preu per persona">
         <label for="datainici" class="form-label">Data inici</label>
@@ -16,3 +25,4 @@
         <button type="submit" onclick="afegirOferta()" class="mt-2 btn btn-primary">Afegir</button>
     </div>
 </form>
+<div class="mt-5" id="ofertes" onload="mostrarOfertes()"></div>
