@@ -106,6 +106,45 @@ class LlistaDestinacions{
             }
         }
     }
+    /**
+    * Destinació find
+    *
+    * @param $id Id de la destinació
+    * @return Destinacio
+    * 
+    * Métode per buscar una destinació per ID
+    */
+    public static function destinacio_find($id){
+        $query = "SELECT id, continent, pais, imatges FROM destinacions WHERE id = :id ;";
+        $params = array(':id' => $id);
+
+        Connexio::connect();
+        $stmt = Connexio::execute($query, $params);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $destinacio = new Destinacio($row['continent'],$row['pais'],$row['imatges'],$row['id']);
+
+        return $destinacio;
+    }
+    /**
+    * update Destinacio
+    *
+    * @return boolean
+    * 
+    * Métode per actualitzar una destinació de la BBDD
+    */
+    public static function updateDestinacio($data, $imatge){
+        $destinacio_original = self::destinacio_find($data['id']);
+
+        $continent = (empty($data['continent'])) ? $destinacio_original->getContinent() : $data['continent'];
+        $pais = (empty($data['pais'])) ? $destinacio_original->getPais() : $data['pais'];
+        $imatges = (empty($imatge["imatge"]["name"])) ? $destinacio_original->getImatges() : basename($imatge["imatge"]["name"]);
+
+        $destinacio = new Destinacio($continent, $pais, $imatges, $data['id']);
+
+        return $destinacio->update();
+    }
 }
 
 ?>
