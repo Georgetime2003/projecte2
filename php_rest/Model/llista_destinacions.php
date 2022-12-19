@@ -153,8 +153,9 @@ class LlistaDestinacions{
     * Métode que crea una destinacio i la inserta a la BBDD
     */
     public static function createDestinacio($data){
-        $imatges = $data['imatges'] ?? null; 
-        $destinacio = new Destinacio($data['continent'], $data['pais'], $imatges);
+        $imatges = $data['imatges'] ?? null;
+        $pais = $data['intropais'] ?? $data['pais'];
+        $destinacio = new Destinacio($data['continent'], $pais, $imatges);
 
         return $destinacio->create();
     }

@@ -13,7 +13,10 @@
     $data = $_POST;
     
     // Si no falten dades creem la oferta
-    if (!empty($data['desti']) && !empty($data['preupersona']) && !empty($data['datainici']) && !empty($data['datafi'])) {
+    if (!empty($data['pais']) && !empty($data['preupersona']) && !empty($data['datainici']) && !empty($data['datafinal'])) {
+        if (!empty($data['intropais'])) {
+            LlistaDestinacions::createDestinacio($data);
+        }
         $result = LlistaOfertes::createOferta($data);
 
         if ($result) {

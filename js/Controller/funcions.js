@@ -70,7 +70,7 @@ function llistarPaisos() {
                     destins.destinacions = destins.destinacions.filter(destin => destin.continent == document.getElementById("Continent").value);
                     for (let i = 0; i < destins.destinacions.length; i++) {
                         let option = document.createElement("option");
-                        option.value = destins.destinacions[i].pais;
+                        option.value = destins.destinacions[i].id;
                         option.innerHTML = destins.destinacions[i].pais;
                         llista.appendChild(option);
                     }
