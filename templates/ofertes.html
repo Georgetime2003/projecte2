@@ -1,6 +1,8 @@
 <form enctype="multipart/form-data">
     <div class="mb-3">
         <h3 class="text-center">Afegir Oferta</h3>
+        <label for="titol" class="form-label">Titol</label>
+        <input type="text" class="form-control" id="titol" name="titol" placeholder="Titol">
         <label for="Continent" class="form-label">Continent</label>
         <select id="Continent" onclick="llistarPaisos()" name="Continent" class="form-select" aria-label="Continents">
             <option value="null" selected>Seleccioni un Continent</option>
@@ -22,6 +24,8 @@
         <input type="date" class="form-control" id="datainici" name="datainici" placeholder="Data inici">
         <label for="datafinal" class="form-label">Data final</label>
         <input type="date" class="form-control" id="datafinal" name="datafinal" placeholder="Data final">
+        <label for="AfegirImatge" class="form-label">Afegir imatge</label>
+        <input type="file" class="form-control" id="imatge" name="imatge" placeholder="Imatge" accept="image/*">
         <button type="submit" onclick="afegirOferta()" class="mt-2 btn btn-primary">Afegir</button>
     </div>
 </form>

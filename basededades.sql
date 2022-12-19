@@ -1,16 +1,21 @@
--- SQLBook: Code
 -- phpMyAdmin SQL Dump
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2022 a las 20:52:52
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Temps de generació: 19-12-2022 a les 17:18:57
+-- Versió del servidor: 10.4.24-MariaDB
+-- Versió de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+DROP DATABASE IF EXISTS projecte2;
+
+CREATE DATABASE IF NOT EXISTS projecte2;
+
+USE projecte2;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,67 +24,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `projecte2`
+-- Base de dades: `projecte2`
 --
-
-DROP DATABASE IF EXISTS projecte2;
-
-CREATE DATABASE IF NOT EXISTS projecte2;
-
-USE projecte2;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `continents`
---
-
-CREATE TABLE `continents` (
-  `id` int(11) NOT NULL,
-  `continent` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `continents`
---
-
-INSERT INTO `continents` (`id`, `continent`) VALUES
-(1, 'asia'),
-(2, 'nordamerica'),
-(3, 'sudamerica'),
-(4, 'europa'),
-(5, 'oceania');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `destinacions`
+-- Estructura de la taula `destinacions`
 --
 
 CREATE TABLE `destinacions` (
   `id` int(11) NOT NULL COMMENT 'Clau Primària',
-  `continent` int(11) NOT NULL COMMENT 'Continent',
+  `continent` varchar(255) NOT NULL COMMENT 'Continent',
   `pais` varchar(255) NOT NULL COMMENT 'Pais',
   `imatges` varchar(255) NOT NULL COMMENT 'Imatges de la destinació'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Taula de destinacions';
 
 --
--- Volcado de datos para la tabla `destinacions`
+-- Bolcament de dades per a la taula `destinacions`
 --
 
 INSERT INTO `destinacions` (`id`, `continent`, `pais`, `imatges`) VALUES
-(1, 1, 'india', 'asdasd'),
-(2, 1, 'japo', 'sdfja'),
-(3, 1, 'nepal', 'asda'),
-(4, 2, 'canada', 'sdfsd'),
-(5, 3, 'chile', 'asldkja'),
-(6, 4, 'alemanya', 'asdad'),
-(7, 4, 'kosovo', 'asdasd');
+(1, 'Europa', 'França', ''),
+(2, 'Europa', 'Espanya', ''),
+(3, 'Àsia', 'Japo', '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ofertes`
+-- Estructura de la taula `ofertes`
 --
 
 CREATE TABLE `ofertes` (
@@ -93,7 +66,7 @@ CREATE TABLE `ofertes` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reserves`
+-- Estructura de la taula `reserves`
 --
 
 CREATE TABLE `reserves` (
@@ -107,82 +80,63 @@ CREATE TABLE `reserves` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Índices para tablas volcadas
+-- Índexs per a les taules bolcades
 --
 
 --
--- Indices de la tabla `continents`
+-- Índexs per a la taula `destinacions`
 --
-ALTER TABLE `continents`
+ALTER TABLE `destinacions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `destinacions`
---
-ALTER TABLE `destinacions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `destinacions_ibfk_1` (`continent`);
-
---
--- Indices de la tabla `ofertes`
+-- Índexs per a la taula `ofertes`
 --
 ALTER TABLE `ofertes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `iddesti` (`iddesti`);
 
 --
--- Indices de la tabla `reserves`
+-- Índexs per a la taula `reserves`
 --
 ALTER TABLE `reserves`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idoferta` (`idoferta`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT per les taules bolcades
 --
 
 --
--- AUTO_INCREMENT de la tabla `continents`
---
-ALTER TABLE `continents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `destinacions`
+-- AUTO_INCREMENT per la taula `destinacions`
 --
 ALTER TABLE `destinacions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària', AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària', AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `ofertes`
+-- AUTO_INCREMENT per la taula `ofertes`
 --
 ALTER TABLE `ofertes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària';
 
 --
--- AUTO_INCREMENT de la tabla `reserves`
+-- AUTO_INCREMENT per la taula `reserves`
 --
 ALTER TABLE `reserves`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key';
 
 --
--- Restricciones para tablas volcadas
+-- Restriccions per a les taules bolcades
 --
 
 --
--- Filtros para la tabla `destinacions`
---
-ALTER TABLE `destinacions`
-  ADD CONSTRAINT `destinacions_ibfk_1` FOREIGN KEY (`continent`) REFERENCES `continents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `ofertes`
+-- Restriccions per a la taula `ofertes`
 --
 ALTER TABLE `ofertes`
   ADD CONSTRAINT `ofertes_ibfk_1` FOREIGN KEY (`iddesti`) REFERENCES `destinacions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `reserves`
+-- Restriccions per a la taula `reserves`
 --
 ALTER TABLE `reserves`
   ADD CONSTRAINT `reserves_ibfk_1` FOREIGN KEY (`idoferta`) REFERENCES `ofertes` (`id`);
