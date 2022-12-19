@@ -14,7 +14,7 @@
         private $imatges;
 
         // CONSTRUCTOR
-        public function __construct($continent, $pais, $imatges, $id = null){
+        public function __construct($continent, $pais, $imatges = null, $id = null){
             $this->continent = $continent;
             $this->pais = $pais;
             $this->imatges = $imatges;
@@ -50,6 +50,31 @@
         }
 
         // METHODS
+        /**
+         * create
+         *
+         * @return boolean
+         * 
+         * Métode per introduir una destinacio a la BBDD
+         */
+        public function create(){
+            $query = "INSERT INTO destinacions (id, continent, pais, imatges)
+                        VALUES (null, :continent, :pais, :imatges)";
+
+            $params = array(':continent' => $this->getContinent(),
+                            ':pais' => $this->getPais(),
+                            ':imatges' => $this->getImatges()
+            );
+
+            Connexio::connect();
+            $stmt = Connexio::execute($query,$params);
+
+            if ($stmt) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
         /**
          * update
          *
