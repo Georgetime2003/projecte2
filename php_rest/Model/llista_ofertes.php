@@ -74,7 +74,7 @@ class LlistaOfertes{
     * Métode que crea una oferta i la inserta a la BBDD
     */
     public static function createOferta($data){
-        $oferta = new Oferta($data['desti'], $data['preupersona'], $data['datainici'], $data['datafi']);
+        $oferta = new Oferta($data['pais'], $data['preupersona'], $data['datainici'], $data['datafinal']);
 
         return $oferta->create();
     }
