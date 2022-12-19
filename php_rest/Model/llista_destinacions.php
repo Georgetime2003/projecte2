@@ -145,6 +145,19 @@ class LlistaDestinacions{
 
         return $destinacio->update();
     }
+    /**
+    * Create Destinacio
+    * @param data - Les dades de la destinacio a crear
+    * @return boolean
+    * 
+    * Métode que crea una destinacio i la inserta a la BBDD
+    */
+    public static function createDestinacio($data){
+        $imatges = $data['imatges'] ?? null; 
+        $destinacio = new Destinacio($data['continent'], $data['pais'], $imatges);
+
+        return $destinacio->create();
+    }
 }
 
 ?>
