@@ -22,7 +22,7 @@ class LlistaDestinacions{
     public static function getAllDestinacions(){
         self::$llista_destinacions = array();
 
-        $query = "SELECT id, d.continent, d.pais, d.imatges FROM destinacions d";
+        $query = "SELECT d.id, c.continent, d.pais, d.imatges FROM destinacions d LEFT JOIN continents c ON c.id = d.continent";
 
         Connexio::connect();
         $stmt = Connexio::execute($query);
