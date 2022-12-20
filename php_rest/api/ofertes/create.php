@@ -20,9 +20,9 @@
         $result = LlistaOfertes::createOferta($data);
 
         if ($result) {
-            $missatge = array('success' => true);
+            $missatge = array('resultat' => "OK");
         } else {
-            $missatge = array('error' => true);
+            $missatge = array('resultat' => "Error");
         }
     }
 
