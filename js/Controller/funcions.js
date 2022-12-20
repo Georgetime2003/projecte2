@@ -2,11 +2,89 @@
 
 window.onload = init;
 
-var continents, paisos, continents, pais;
+var continents, paisos, continents, pais, formathora = false;
 
 function init() {
+    rellotge();
     document.getElementById("ofertes").addEventListener("click", loadOfertes);
     document.getElementById("reserves").addEventListener("click", loadReserves);
+}
+
+function rellotge() {
+    var data = new Date();
+    var hora = data.getHours();
+    var minuts = data.getMinutes();
+    var segons = data.getSeconds();
+    var dia = data.getDate();
+    var mes = data.getMonth() + 1;
+    var any = data.getFullYear();
+    var diaSetmana = data.getDay();
+    var textampm;
+    if (formathora == false) {
+        //format hora 24h
+        if (hora < 10) {
+            hora = "0" + hora;
+        }
+        if (minuts < 10) {
+            minuts = "0" + minuts;
+        }
+        if (segons < 10) {
+            segons = "0" + segons;
+        } 
+    }else {
+        //Format AM/PM
+        if (hora > 12) {
+            hora = hora - 12;
+            textampm = "PM";
+        } else {
+            textampm = "AM";
+        }
+        if (hora < 10) {
+            hora = "0" + hora;
+        }
+        if (minuts < 10) {
+            minuts = "0" + minuts;
+        }
+        if (segons < 10) {
+            segons = "0" + segons;
+        }
+    }
+    if (dia < 10) {
+        dia = "0" + dia;
+    }
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+    switch (diaSetmana) {
+        case 0:
+            diaSetmana = "Diumenge";
+            break;
+        case 1:
+            diaSetmana = "Dilluns";
+            break;
+        case 2:
+            diaSetmana = "Dimarts";
+            break;
+        case 3:
+            diaSetmana = "Dimecres";
+            break;
+        case 4:
+            diaSetmana = "Dijous";
+            break;
+        case 5:
+            diaSetmana = "Divendres";
+            break;
+        case 6:
+            diaSetmana = "Dissabte";
+            break;
+    }
+    document.getElementById("data").innerHTML = diaSetmana + ", " + dia + "/" + mes + "/" + any + " " + hora + ":" + minuts + ":" + segons;
+    document.getElementById("data").innerHTML += (textampm != null) ? " " + textampm : "";
+    document.getElementById("data").addEventListener("dblclick", function () {
+        formathora = !formathora;
+        rellotge();
+    });
+    setTimeout("rellotge()", 1000);
 }
 
 function loadOfertes() {
