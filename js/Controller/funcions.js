@@ -171,6 +171,7 @@ function llistarPaisos() {
                     for (let i = 0; i < destins.destinacions.length; i++) {
                         let option = document.createElement("option");
                         option.value = destins.destinacions[i].id;
+                        option.id = destins.destinacions[i].pais;
                         option.innerHTML = destins.destinacions[i].pais;
                         llista.appendChild(option);
                     }
@@ -295,7 +296,7 @@ function mostrarOfertes() {
 function llistarOfertes(data, idpais){
     if (idpais != 0) {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "php_rest/api/ofertes/read.php?read=ALL", true);
+    xhr.open("POST", "php_rest/api/ofertes/read.php?read=ALLNJ", true);
     xhr.onload = function () {
         if (xhr.status == 200) {
             let ofertes = JSON.parse(xhr.responseText);
@@ -307,12 +308,18 @@ function llistarOfertes(data, idpais){
                 let llistaofertes = document.getElementById("lliofertes");
                 llistaofertes.innerHTML = "";
                 preuofertes = [];
+                let option = document.createElement("option");
+                option.value = 0;
+                option.innerHTML = "Selecciona una oferta";
+                llistaofertes.appendChild(option);
                 for(let i = 0; i < ofertes.ofertes.length; i++){
+                    if (ofertes.ofertes[i].destinacio == document.getElementById("Pais").value){
                         let option = document.createElement("option");
                         option.value = ofertes.ofertes[i].id;
                         option.innerHTML = ofertes.ofertes[i].titol;
                         llistaofertes.appendChild(option);
                         preuofertes[ofertes.ofertes[i].id] = ofertes.ofertes[i].preu_persona;
+                    }
                 }
             }
         }

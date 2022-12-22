@@ -45,6 +45,31 @@ class LlistaOfertes{
         }
     }
 
+    public static function getAllOfertesnJ(){
+        self::$llista_ofertes = array();
+
+        $query = "SELECT o.id, o.iddesti, o.titol, o.preupersona, o.datainici, o.datafi FROM ofertes o";
+
+        Connexio::connect();
+        $stmt = Connexio::execute($query);
+
+        Connexio::close();
+
+        $result = $stmt->fetchAll();
+
+        $num = count($result);
+
+        if ($num > 0) {
+            foreach ($result as $row) {
+                extract($row);
+                
+                $oferta = new Oferta($row['iddesti'],$row['titol'],$row['preupersona'],$row['datainici'],$row['datafi'],$row['id']);
+
+                array_push(self::$llista_ofertes, $oferta);
+            }
+        }
+    }
+
     /**
     * Oferta Find
     * @param $id - id de la oferta

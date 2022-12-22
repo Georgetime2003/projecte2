@@ -29,5 +29,15 @@
             'status' => 'OK'
         );
     }
+    if(!empty($data['read']) && strtoupper($data['read']) == 'ALLNJ'){
+        LlistaOfertes::getAllOfertesnJ();
+
+        $llista_ofertes = LlistaOfertes::getLlista();
+
+        $response = array(
+            'ofertes' => $llista_ofertes,
+            'status' => 'OK'
+        );
+    }
     echo json_encode($response);
 ?>
