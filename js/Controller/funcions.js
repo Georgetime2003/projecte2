@@ -360,7 +360,7 @@ function afegirReserva() {
         "nomclient": document.getElementById("nom").value,
         "telefon": document.getElementById("telefon").value,
         "npersones": document.getElementById("npersones").value,
-        "descompte": document.getElementById("descompte").value,
+        "descompte": (document.getElementById("descompte").value == "on") ? 1 : 0,
         "datareserva": dataavui,
     }
     xhr.send(JSON.stringify(reserva));
@@ -438,3 +438,19 @@ function eliminarOferta(id) {
     xhr.send(JSON.stringify(oferta));
 }
 
+
+function eliminarReserva(id) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php_rest/api/reserves/delete.php",true);
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            let resultat = JSON.parse(xhr.responseText);
+                alert("Reserva eliminada correctament");
+                mostrarReserves();
+        }
+    }
+    let reserva = {
+        "id": id
+    }
+    xhr.send(JSON.stringify(reserva));
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 19-12-2022 a les 17:18:57
+-- Temps de generació: 23-12-2022 a les 00:38:27
 -- Versió del servidor: 10.4.24-MariaDB
 -- Versió de PHP: 8.1.6
 
@@ -60,8 +60,17 @@ CREATE TABLE `ofertes` (
   `iddesti` int(11) NOT NULL COMMENT 'Clau forana de destins',
   `preupersona` float NOT NULL COMMENT 'Preu per persona',
   `datainici` date NOT NULL COMMENT 'Data d''inici',
-  `datafi` date NOT NULL COMMENT 'Data fi'
+  `datafi` date NOT NULL COMMENT 'Data fi',
+  `titol` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Ofertes de viatges';
+
+--
+-- Bolcament de dades per a la taula `ofertes`
+--
+
+INSERT INTO `ofertes` (`id`, `iddesti`, `preupersona`, `datainici`, `datafi`, `titol`) VALUES
+(2, 1, 240, '2022-12-26', '2022-12-31', 'Prova'),
+(3, 2, 230, '2022-12-22', '2022-12-29', 'Prova 2');
 
 -- --------------------------------------------------------
 
@@ -78,6 +87,16 @@ CREATE TABLE `reserves` (
   `descompte` tinyint(1) NOT NULL COMMENT 'Descompte',
   `datareserva` date NOT NULL COMMENT 'Data de la reserva'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Bolcament de dades per a la taula `reserves`
+--
+
+INSERT INTO `reserves` (`id`, `idoferta`, `nomclient`, `telefon`, `npersones`, `descompte`, `datareserva`) VALUES
+(1, 2, 'Jordi', '555555555', 2, 0, '0000-00-00'),
+(2, 2, 'Sergi', '123123123', 3, 0, '2022-12-20'),
+(3, 2, 'Sergi', '123123123', 3, 0, '2022-12-20'),
+(6, 2, 'sadsasd', '123123123', 2, 1, '2022-12-22');
 
 --
 -- Índexs per a les taules bolcades
@@ -117,13 +136,13 @@ ALTER TABLE `destinacions`
 -- AUTO_INCREMENT per la taula `ofertes`
 --
 ALTER TABLE `ofertes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clau Primària', AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la taula `reserves`
 --
 ALTER TABLE `reserves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=7;
 
 --
 -- Restriccions per a les taules bolcades
