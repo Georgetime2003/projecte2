@@ -9,12 +9,12 @@
     require_once "../../Model/destinacio.php";
     require_once "../../Model/llista_destinacions.php";
 
-    // $data = json_decode(file_get_contents("php://input"));
-    $data = $_POST;
+    $data = json_decode(file_get_contents("php://input"));
+    // $data = $_POST;
     $imatge = $_FILES;
     
     // Si no falten dades creem la oferta
-    if (!empty($data['id']) && (!empty($data['continent']) || !empty($data['pais']) || !empty($_FILES["imatge"]["name"]))) {
+    if (!empty($data->id) && (!empty($data->continent) || !empty($data->pais) || !empty($_FILES["imatge"]["name"]))) {
         $result = LlistaDestinacions::updateDestinacio($data, $_FILES['imatge']);
 
         // Si l'update es fa correctament, es puja el fitxer al servidor

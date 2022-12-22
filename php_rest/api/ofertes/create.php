@@ -8,13 +8,15 @@
     require_once "../../config/database.php";
     require_once "../../Model/oferta.php";
     require_once "../../Model/llista_ofertes.php";
+    require_once "../../Model/destinacio.php";
+    require_once "../../Model/llista_destinacions.php";
 
-    // $data = json_decode(file_get_contents("php://input"));
-    $data = $_POST;
+    $data = json_decode(file_get_contents("php://input"));
+    // $data = $_POST;
     
     // Si no falten dades creem la oferta
-    if (!empty($data['pais']) && !empty($data['preupersona']) && !empty($data['datainici']) && !empty($data['datafinal'])) {
-        if (!empty($data['intropais'])) {
+    if ((!empty($data->pais) || !empty($data->intropais))&& !empty($data->titol) && !empty($data->preupersona) && !empty($data->datainici) && !empty($data->datafinal)) {
+        if (!empty($data->intropais)) {
             LlistaDestinacions::createDestinacio($data);
         }
         $result = LlistaOfertes::createOferta($data);

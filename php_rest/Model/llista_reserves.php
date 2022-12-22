@@ -74,7 +74,7 @@ class LlistaReserves{
     * Métode que crea una reserva i la inserta a la BBDD
     */
     public static function create_reserva($data){
-        $reserva = new Reserva($data['idoferta'],$data['nomclient'],$data['telefon'],$data['npersones'],$data['descompte'],$data['datareserva']);
+        $reserva = new Reserva($data->idoferta,$data->nomclient,$data->telefon,$data->npersones,$data->descompte,$data->datareserva);
 
         return $reserva->create();
     }

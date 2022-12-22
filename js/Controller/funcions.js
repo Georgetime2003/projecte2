@@ -1,8 +1,16 @@
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+* @author: Jordi Palomino <j.palomino@sapalomera.cat>
+*
+*/
+
 "use strict";
 
 window.onload = init;
 
-var continents, paisos, continents, pais, formathora = false;
+//Variables globals
+var continents, paisos, continents, pais, formathora = false, preureserves, preuofertes;
 
 function init() {
     rellotge();
@@ -10,6 +18,10 @@ function init() {
     document.getElementById("reserves").addEventListener("click", loadReserves);
 }
 
+/**
+ * Funció que mostra el rellotge
+ * @returns {undefined}
+ */
 function rellotge() {
     var data = new Date();
     var hora = data.getHours();
@@ -85,7 +97,10 @@ function rellotge() {
     });
     setTimeout("rellotge()", 1000);
 }
-
+/**
+ * Funció que carrega el formulari d'ofertes
+ * @returns {undefined}
+ */
 function loadOfertes() {
     let formulari = document.getElementById("formulari");
     formulari.innerHTML = "";
@@ -99,7 +114,10 @@ function loadOfertes() {
     xhr.send();
     mostrarOfertes();
 }
-
+/**
+ * Funció que carrega el formulari de reserves
+ * @returns {undefined}
+ */
 function loadReserves() {
     let formulari = document.getElementById("formulari");
     formulari.innerHTML = "";
@@ -131,7 +149,10 @@ function llistarContinents() {
     }
     xhr.send();
 }
-
+/**
+ * Funció que llista els països
+ * @returns {undefined}
+ */
 function llistarPaisos() {
     if (document.getElementById("Continent").value == "null") {
         document.getElementById("Pais").innerHTML = "<option value='null' default>No has seleccionat cap continent</option>";
@@ -165,6 +186,7 @@ function llistarPaisos() {
                         let option = document.createElement("option");
                         option.value = "0";
                         option.innerHTML = "Selecciona un pais";
+                        option.setAttribute("selected", "selected");
                         llista.insertBefore(option, llista.firstChild);
                     }
                 }
@@ -173,7 +195,10 @@ function llistarPaisos() {
         xhr.send();
     }
 }
-
+/**
+ * Funció que comprova si el pais existeix a la base de dades
+ * @returns {undefined}
+ */
 function comprovarPaisBD() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "php_rest/api/destinacions/read.php?read=ALL", true);
@@ -212,14 +237,19 @@ function afegirOferta() {
     }
 
     let oferta = {
-        "intropais": document.getElementById("Pais").value,
-        "preuperpersona": document.getElementById("preupersona").value,
+        "pais": document.getElementById("Pais").value,
+        "titol": document.getElementById("titol").value,
+        "intropais": document.getElementById("intropais").value,
+        "preupersona": document.getElementById("preupersona").value,
         "datainici": document.getElementById("datainici").value,
-        "datafi": document.getElementById("datafinal").value,
+        "datafinal": document.getElementById("datafinal").value,
     }
     xhr.send(JSON.stringify(oferta));
 }
-
+/**
+ * Funció que mostra les ofertes
+ * @returns {undefined}
+ */
 function mostrarOfertes() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "php_rest/api/ofertes/read.php?read=ALL", true);
@@ -228,17 +258,19 @@ function mostrarOfertes() {
             let ofertes = JSON.parse(xhr.responseText);
             let taula = document.getElementById("taulaofertes");
             taula.innerHTML = "";
-            if (document.getElementById("Pais").value == "0") {
+            if (ofertes.ofertes.length == 0) {
                 taula.innerHTML = "<h3>Encara no s'han creat ofertes</h3>"
             } else {
-                ofertes.ofertes = ofertes.ofertes.filter(oferta => oferta.pais == document.getElementById("Pais").value);
                 for (let i = 0; i < ofertes.ofertes.length; i++) {
                     let tr = document.createElement("tr");
                     let td = document.createElement("td");
-                    td.innerHTML = ofertes.ofertes[i].pais;
+                    td.innerHTML = ofertes.ofertes[i].titol;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = ofertes.ofertes[i].preu;
+                    td.innerHTML = ofertes.ofertes[i].destinacio;
+                    tr.appendChild(td);
+                    td = document.createElement("td");
+                    td.innerHTML = (ofertes.ofertes[i].preu_persona).toFixed(2) + "€";
                     tr.appendChild(td);
                     td = document.createElement("td");
                     td.innerHTML = ofertes.ofertes[i].data_inici;
@@ -247,10 +279,7 @@ function mostrarOfertes() {
                     td.innerHTML = ofertes.ofertes[i].data_fi;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = ofertes.ofertes[i].places;
-                    tr.appendChild(td);
-                    td = document.createElement("td");
-                    td.innerHTML = ofertes.ofertes[i].places_disponibles;
+                    td.innerHTML = "<button class='btn btn-danger' onclick='eliminarOferta(" + ofertes.ofertes[i].id + ")'>Eliminar</button>";
                     tr.appendChild(td);
                     taula.appendChild(tr);
                 }
@@ -258,6 +287,76 @@ function mostrarOfertes() {
         }
     }
     xhr.send();
+}
+/**
+ * Funció que elimina una oferta
+ * @param {undefined}
+ */
+function llistarOfertes(data, idpais){
+    if (idpais != 0) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php_rest/api/ofertes/read.php?read=ALL", true);
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            let ofertes = JSON.parse(xhr.responseText);
+            if (ofertes.ofertes.length == 0){
+                document.getElementById("errorText").innerHTML = "No hi ha ofertes disponibles per aquesta data, consulta les ofertes disponibles per aquest pais i data";
+                document.getElementById("error").removeAttribute("hidden");
+            } else {
+                document.getElementById("error").setAttribute("hidden", "hidden");
+                let llistaofertes = document.getElementById("lliofertes");
+                llistaofertes.innerHTML = "";
+                preuofertes = [];
+                for(let i = 0; i < ofertes.ofertes.length; i++){
+                        let option = document.createElement("option");
+                        option.value = ofertes.ofertes[i].id;
+                        option.innerHTML = ofertes.ofertes[i].titol;
+                        llistaofertes.appendChild(option);
+                        preuofertes[ofertes.ofertes[i].id] = ofertes.ofertes[i].preu_persona;
+                }
+            }
+        }
+    }
+    xhr.send();
+    }
+}
+
+function setidoferta() {
+    let idoferta = document.getElementById("lliofertes").value;
+    document.getElementById("idoferta").value = idoferta;
+    document.getElementById("preu").value = preuofertes[idoferta];
+    preureserves = preuofertes[idoferta];
+}
+
+function multiplicarpreu() {
+    let num = document.getElementById("npersones").value;
+    document.getElementById("preu").value = preureserves * num;
+}
+
+function afegirReserva() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php_rest/api/reserves/create.php", true);
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            let resultat = JSON.parse(xhr.responseText);
+            if (resultat.success == true) {
+                alert("Reserva creada correctament");
+                mostrarReserves();
+            } else {
+                alert("Error al crear la reserva");
+            }
+        }
+    }
+    let dataavui = new Date();
+    let reserva = {
+        "idoferta": document.getElementById("idoferta").value,
+        "nomclient": document.getElementById("nom").value,
+        "telefon": document.getElementById("telefon").value,
+        "npersones": document.getElementById("npersones").value,
+        "descompte": document.getElementById("descompte").value,
+        "datareserva": dataavui,
+    }
+    xhr.send(JSON.stringify(reserva));
 }
 
 function mostrarReserves() {
@@ -268,29 +367,31 @@ function mostrarReserves() {
             let reserves = JSON.parse(xhr.responseText);
             let taula = document.getElementById("taulareserves");
             taula.innerHTML = "";
-            if (document.getElementById("Pais").value == "0") {
+            if (reserves.reserves.length == 0) {
                 taula.innerHTML = "<h3>Encara no s'han creat reserves</h3>"
             } else {
-                reserves.reserves = reserves.reserves.filter(reserva => reserva.pais == document.getElementById("Pais").value);
                 for (let i = 0; i < reserves.reserves.length; i++) {
                     let tr = document.createElement("tr");
                     let td = document.createElement("td");
-                    td.innerHTML = reserves.reserves[i].nom;
+                    td.innerHTML = reserves.reserves[i].id;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = reserves.reserves[i].cognom;
+                    td.innerHTML = reserves.reserves[i].client;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = reserves.reserves[i].email;
+                    td.innerHTML = reserves.reserves[i].num_persones;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = reserves.reserves[i].telefon;
+                    td.innerHTML = reserves.reserves[i].data_reserva;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = reserves.reserves[i].pais;
+                    td.innerHTML = reserves.reserves[i].oferta;
                     tr.appendChild(td);
                     td = document.createElement("td");
-                    td.innerHTML = reserves.reserves[i].places;
+                    td.innerHTML = (reserves.reserves[i].descompte == 0) ? "No" : "Si";
+                    tr.appendChild(td);
+                    td = document.createElement("td");
+                    td.innerHTML = "<button class='btn btn-danger' onclick='eliminarReserva(" + reserves.reserves[i].id + ")'>Eliminar</button>";
                     tr.appendChild(td);
                     taula.appendChild(tr);
                 }
@@ -308,9 +409,25 @@ function afegirdestinacio() {
         }
     }
     let data = {
-        "pais": document.getElementById("Pais").value,
+        "pais": document.getElementById("intropais").value,
         "continent": document.getElementById("Continent").value,
     }
     xhr.send(JSON.stringify(data));
+}
+
+function eliminarOferta(id) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php_rest/api/ofertes/delete.php",true);
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            let resultat = JSON.parse(xhr.responseText);
+                alert("Oferta eliminada correctament");
+                mostrarOfertes();
+        }
+    }
+    let oferta = {
+        "id": id
+    }
+    xhr.send(JSON.stringify(oferta));
 }
 

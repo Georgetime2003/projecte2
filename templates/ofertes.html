@@ -7,8 +7,8 @@
         <select id="Continent" onclick="llistarPaisos()" name="Continent" class="form-select" aria-label="Continents">
             <option value="null" selected>Seleccioni un Continent</option>
             <option value="Europa">Europa</option>
-            <option value="Asia">Àsia</option>
-            <option value="Africa">Africa</option>
+            <option value="Àsia">Àsia</option>
+            <option value="Àfrica">Africa</option>
             <option value="America">Amèrica</option>
             <option value="Oceania">Oceania</option>
         </select>
@@ -29,4 +29,17 @@
         <button type="button" onclick="afegirOferta()" class="mt-2 btn btn-primary">Afegir</button>
     </div>
 </form>
-<div class="mt-5" id="taulaofertes"></div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Titol</th>
+            <th scope="col">País</th>
+            <th scope="col">Preu per persona</th>
+            <th scope="col">Data inici</th>
+            <th scope="col">Data final</th>
+            <th scope="col">Accions</th>
+        </tr>
+    </thead>
+    <tbody id="taulaofertes">
+    </tbody>
+</table>

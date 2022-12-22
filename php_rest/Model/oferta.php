@@ -76,7 +76,7 @@
          */
         public function create(){
             $query = "INSERT INTO ofertes (id, iddesti, titol, preupersona, datainici, datafi)
-                        VALUES (null, :iddesti, :preupersona, :datainici, :datafi)";
+                        VALUES (null, :iddesti, :titol, :preupersona, :datainici, :datafi)";
 
             $params = array(':iddesti' => $this->getDesti(),
                             ':titol' => $this->getTitol(),
@@ -121,7 +121,7 @@
         /**
          * jsonSerialize
          *
-         * @return JSONObject
+         * @return Array
          * 
          * Métode de la interfície JsonSerializable que indica la seva estructura quan es converteixi a JSON
          */

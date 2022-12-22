@@ -135,13 +135,13 @@ class LlistaDestinacions{
     * Métode per actualitzar una destinació de la BBDD
     */
     public static function updateDestinacio($data, $imatge){
-        $destinacio_original = self::destinacio_find($data['id']);
+        $destinacio_original = self::destinacio_find($data->id);
 
-        $continent = (empty($data['continent'])) ? $destinacio_original->getContinent() : $data['continent'];
-        $pais = (empty($data['pais'])) ? $destinacio_original->getPais() : $data['pais'];
+        $continent = (empty($data->continent)) ? $destinacio_original->getContinent() : $data->continent;
+        $pais = (empty($data->pais)) ? $destinacio_original->getPais() : $data->pais;
         $imatges = (empty($imatge["imatge"]["name"])) ? $destinacio_original->getImatges() : basename($imatge["imatge"]["name"]);
 
-        $destinacio = new Destinacio($continent, $pais, $imatges, $data['id']);
+        $destinacio = new Destinacio($continent, $pais, $imatges, $data->id);
 
         return $destinacio->update();
     }
@@ -153,9 +153,9 @@ class LlistaDestinacions{
     * Métode que crea una destinacio i la inserta a la BBDD
     */
     public static function createDestinacio($data){
-        $imatges = $data['imatges'] ?? null;
-        $pais = $data['intropais'] ?? $data['pais'];
-        $destinacio = new Destinacio($data['continent'], $pais, $imatges);
+        $imatges = $data->imatges ?? null;
+        $pais = $data->intropais ?? $data->pais;
+        $destinacio = new Destinacio($data->continent, $pais, $imatges);
 
         return $destinacio->create();
     }

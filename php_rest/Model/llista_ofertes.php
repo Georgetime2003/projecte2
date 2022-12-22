@@ -23,7 +23,7 @@ class LlistaOfertes{
     public static function getAllOfertes(){
         self::$llista_ofertes = array();
 
-        $query = "SELECT o.id, d.pais, o.preupersona, o.datainici, o.datafi FROM ofertes o LEFT JOIN destinacions d ON d.id = o.iddesti";
+        $query = "SELECT o.id, d.pais, o.titol, o.preupersona, o.datainici, o.datafi FROM ofertes o LEFT JOIN destinacions d ON d.id = o.iddesti";
 
         Connexio::connect();
         $stmt = Connexio::execute($query);
@@ -38,7 +38,7 @@ class LlistaOfertes{
             foreach ($result as $row) {
                 extract($row);
                 
-                $oferta = new Oferta($row['pais'],$row['preupersona'],$row['datainici'],$row['datafi'],$row['id']);
+                $oferta = new Oferta($row['pais'],$row['titol'],$row['preupersona'],$row['datainici'],$row['datafi'],$row['id']);
 
                 array_push(self::$llista_ofertes, $oferta);
             }
@@ -53,7 +53,7 @@ class LlistaOfertes{
     * Métode que retorna la oferta especificada de la BBDD
     */
     public static function oferta_find($id){
-        $query = "SELECT id, iddesti, preupersona, datainici, datafi FROM ofertes WHERE id = :id ;";
+        $query = "SELECT id, iddesti, titol, preupersona, datainici, datafi FROM ofertes WHERE id = :id ;";
         $params = array(':id' => $id);
 
         Connexio::connect();
@@ -61,7 +61,7 @@ class LlistaOfertes{
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $oferta = new Oferta($row['iddesti'],$row['preupersona'],$row['datainici'],$row['datafi'],$row['id']);
+        $oferta = new Oferta($row['iddesti'],$row['titol'],$row['preupersona'],$row['datainici'],$row['datafi'],$row['id']);
 
         return $oferta;
     }
@@ -74,7 +74,7 @@ class LlistaOfertes{
     * Métode que crea una oferta i la inserta a la BBDD
     */
     public static function createOferta($data){
-        $oferta = new Oferta($data['pais'], $data['preupersona'], $data['datainici'], $data['datafinal']);
+        $oferta = new Oferta($data->pais, $data->titol, $data->preupersona, $data->datainici, $data->datafinal);
 
         return $oferta->create();
     }

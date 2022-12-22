@@ -1,33 +1,55 @@
 <form enctype="multipart/form-data">
     <div class="mb-3">
         <h3 class="text-center">Crear Reserva</h3>
+        <div class="alert alert-danger" role="alert" id="error" hidden>
+            <p id="errorText"></p>
+        </div>
         <label class="form-label" for="data">Data</label>
         <input class="form-control" type="date" name="data" id="data">
         <label class="form-label" for="desti">Destí</label>
         <select class="form-control" onclick="llistarPaisos()" id="Continent" name="continents" class="form-select" aria-label="Continents">
             <option value="null" selected>Seleccioni un Continent</option>
             <option value="Europa">Europa</option>
-            <option value="Asia">Àsia</option>
-            <option value="Africa">Africa</option>
+            <option value="Àsia">Àsia</option>
+            <option value="Àfrica">Àfrica</option>
             <option value="America">Amèrica</option>
             <option value="Oceania">Oceania</option>
         </select>
         <label class="form-label" for="pais">País</label>
-       <select id="Pais" name="Pais" class="form-select" aria-label="Paisos" disabled>
+       <select id="Pais" name="Pais" onclick="llistarOfertes(document.getElementById('data').value),document.getElementById('Pais').value" class="form-select" aria-label="Pais">
             <option value="0" selected>Seleccioni un Continent primer</option>
         </select>
+        <label class="form-label" for="lliofertes">Ofertes</label>
+        <select id = "lliofertes" name="lliofertes" onclick="setidoferta()" class="form-select" aria-label="ofertes">
+            <option value="0" selected>Seleccioni un País primer</option>
+        </select>
+        <label class="form-label" for="npersones">Número de Persones</label>
+        <input class="form-control" onchange="multiplicarpreu()" type="number" name="npersones" id="npersones">
         <label class="form-label" for="preu">Preu</label>
         <input class="form-control" type="number" name="preu" id="preu" disabled>
         <label class="form-label" for="nom">Nom</label>
         <input class="form-control" type="text" name="nom" id="nom">
         <label class="form-label" for="telefon">Telèfon</label>
         <input class="form-control" type="text" name="telefon" id="telefon">
-        <label class="form-label" for="persones">Persones</label>
-        <input class="form-control" type="number" name="persones" id="persones">
         <input type="checkbox" name="descompte" id="descompte">
         <label for="descompte">Descompte 20%</label>
+        <input id="idoferta" type="number" name="idoferta" value="0" hidden>
         <br>
-        <input class="btn btn-primary" type="submit" value="Reservar" onclick="reservar()">
+        <input class="btn btn-primary" type="button" value="Reservar" onclick="afegirReserva()">
     </div>
 </form>
-<div id="taulareserves"></div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Client</th>
+            <th scope="col">Número de Persones</th>
+            <th scope="col">Data Reserva</th>
+            <th scope="col">Id Oferta</th>
+            <th scope="col">Descompte</th>
+            <th scope="col">Accions</th>
+        </tr>
+    </thead>
+    <tbody id="taulareserves">
+    </tbody>
+</table>
